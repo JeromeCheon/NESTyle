@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { DiariesService } from './diaries.service';
 import { Diary } from './diary.model';
 import { CreateDiaryDto } from './dto/create-diary.dto';
@@ -30,5 +39,14 @@ export class DiariesController {
   @Delete('/:id')
   deleteDiary(@Param('id') id: string): void {
     return this.diariesService.deleteDiary(id);
+  }
+
+  @Patch('/:id')
+  updateTitleNContent(
+    @Param('id') id: string,
+    @Body('title') title: string,
+    @Body('content') content: string,
+  ): Diary {
+    return this.diariesService.updateTitleNContent(id, title, content);
   }
 }
