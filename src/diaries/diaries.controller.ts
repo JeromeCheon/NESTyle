@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { DiariesService } from './diaries.service';
 import { Diary } from './diary.model';
 import { CreateDiaryDto } from './dto/create-diary.dto';
@@ -17,8 +17,8 @@ export class DiariesController {
     return this.diariesService.getDiaryById(id);
   }
 
-  @Get('/:month')
-  getDiariesByMonth(@Param('month') month: string): Diary[] {
+  @Get()
+  getDiariesByMonth(@Query() month: string): Diary[] {
     return this.diariesService.getDiariesByMonth(month);
   }
 
