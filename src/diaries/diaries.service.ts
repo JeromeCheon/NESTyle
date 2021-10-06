@@ -10,11 +10,17 @@ export class DiariesService {
     return this.diaries;
   }
 
-  createDiary(title: string, date: Date, content: string): Diary {
+  getDiariesByMonth(month: string) {
+    return this.diaries.filter(
+      (diary) => diary.date.getMonth() === Number(month) - 1,
+    );
+  }
+
+  createDiary(title: string, content: string): Diary {
     const diary: Diary = {
       id: uuid(),
       title: title,
-      date: date,
+      date: new Date(), // Date instance를 넣는게 맞을까, string으로 넣는게 맞을까?
       content: content,
       status: DiaryStatus.NEW,
     };
