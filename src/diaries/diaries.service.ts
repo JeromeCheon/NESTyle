@@ -37,4 +37,14 @@ export class DiariesService {
   deleteDiary(id: string): void {
     this.diaries = this.diaries.filter((diary) => diary.id !== id);
   }
+
+  updateTitleNContent(id: string, title: string, content: string): Diary {
+    const diary = this.getDiaryById(id);
+    diary.title = title;
+    diary.content = content;
+    diary.date = new Date();
+    diary.status = DiaryStatus.IN_PROGRESS;
+
+    return diary;
+  }
 }
