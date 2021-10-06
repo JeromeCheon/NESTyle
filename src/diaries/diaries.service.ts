@@ -33,4 +33,8 @@ export class DiariesService {
     this.diaries.push(diary); // Diary에 푸시를 해서 새 일기를 기록함
     return diary;
   }
+
+  deleteDiary(id: string): void {
+    this.diaries = this.diaries.filter((diary) => diary.id !== id);
+  }
 }
