@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Diary, DiaryStatus } from './diary.model';
 import { v4 as uuid } from 'uuid';
+import { CreateDiaryDto } from './dto/create-diary.dto';
 
 @Injectable()
 export class DiariesService {
@@ -10,13 +11,18 @@ export class DiariesService {
     return this.diaries;
   }
 
+  getDiaryById(id: string) {
+    return this.diaries.find((diary) => diary.id === id);
+  }
+
   getDiariesByMonth(month: string) {
     return this.diaries.filter(
       (diary) => diary.date.getMonth() === Number(month) - 1,
     );
   }
 
-  createDiary(title: string, content: string): Diary {
+  createDiary(createDiaryDto: CreateDiaryDto): Diary {
+    const { title, content } = createDiaryDto;
     const diary: Diary = {
       id: uuid(),
       title: title,
