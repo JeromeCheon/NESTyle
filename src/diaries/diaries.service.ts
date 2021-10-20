@@ -7,15 +7,15 @@ import { CreateDiaryDto } from './dto/create-diary.dto';
 export class DiariesService {
   private diaries: Diary[] = [];
 
-  getAllDiaries() {
+  getAllDiaries(): Diary[] {
     return this.diaries;
   }
 
-  getDiaryById(id: string) {
+  getDiaryById(id: string): Diary {
     return this.diaries.find((diary) => diary.id === id);
   }
 
-  getDiariesByMonth(month: string) {
+  getDiariesByMonth(month: string): Diary[] {
     return this.diaries.filter(
       (diary) => diary.date.getMonth() === Number(month) - 1,
     );
