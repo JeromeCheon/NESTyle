@@ -11,14 +11,19 @@ import {
 import { DiariesService } from './diaries.service';
 import { Diary } from './diary.model';
 import { CreateDiaryDto } from './dto/create-diary.dto';
+import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
 
 @Controller('diaries')
 export class DiariesController {
   constructor(private diariesService: DiariesService) {}
 
   @Get()
-  getAllDiaries(): Diary[] {
-    return this.diariesService.getAllDiaries();
+  getDiaries(@Query() filterDto: GetDiariesFilterDto): Diary[] {
+    if (Object.keys(filterDto).length) {
+      return this.diariesService.getDiariesWithFilters(filterDto);
+    } else {
+      return this.diariesService.getAllDiaries();
+    }
   }
 
   @Get('/:id')
