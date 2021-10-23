@@ -1,9 +1,11 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { DiaryStatus } from '../diary.model';
 
 export class GetDiariesFilterDto {
-  @IsNotEmpty()
-  status: DiaryStatus;
-  @IsNotEmpty()
+  @IsOptional()
+  @IsEnum(DiaryStatus)
+  status?: DiaryStatus;
+  @IsOptional()
+  @IsString()
   search: string;
 }
