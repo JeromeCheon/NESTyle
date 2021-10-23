@@ -1,6 +1,11 @@
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { DiaryStatus } from '../diary.model';
 
 export class GetDiariesFilterDto {
-  status: DiaryStatus;
+  @IsOptional()
+  @IsEnum(DiaryStatus)
+  status?: DiaryStatus;
+  @IsOptional()
+  @IsString()
   search: string;
 }
