@@ -62,15 +62,21 @@ export class DiariesService {
   }
 
   deleteDiary(id: string): void {
-    this.diaries = this.diaries.filter((diary) => diary.id !== id);
+    const found = this.getDiaryById(id);
+    this.diaries = this.diaries.filter((diary) => diary.id === found.id);
   }
 
-  updateTitleNContent(id: string, title: string, content: string): Diary {
+  updateTitleNContent(
+    id: string,
+    title: string,
+    content: string,
+    status: DiaryStatus,
+  ): Diary {
     const diary = this.getDiaryById(id);
     diary.title = title;
     diary.content = content;
     diary.date = new Date();
-    diary.status = DiaryStatus.IN_PROGRESS;
+    diary.status = status;
 
     return diary;
   }
