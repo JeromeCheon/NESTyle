@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { DiaryStatus } from './diary.model';
+import { DiaryStatus } from './diary-status.enum';
 
 @Entity()
 export class Diary {
