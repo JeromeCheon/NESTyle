@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { DiaryStatus } from '../diary.model';
+import { DiaryStatus } from '../diary-status.enum';
 
 export class GetDiariesFilterDto {
   @IsOptional()

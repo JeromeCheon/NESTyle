@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Diary, DiaryStatus } from './diary.model';
+import { DiaryStatus } from './diary-status.enum';
 import { v4 as uuid } from 'uuid';
 import { CreateDiaryDto } from './dto/create-diary.dto';
 import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
+import { Diary } from './diary.entity';
 
 @Injectable()
 export class DiariesService {

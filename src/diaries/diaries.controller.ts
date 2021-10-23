@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { DiariesService } from './diaries.service';
-import { Diary } from './diary.model';
+import { Diary } from './diary.entity';
 import { CreateDiaryDto } from './dto/create-diary.dto';
 import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
 import { UpdateDiaryStatusDto } from './dto/update-diary-status.dto';
