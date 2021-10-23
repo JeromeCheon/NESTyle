@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Diary, DiaryStatus } from './diary.model';
 import { v4 as uuid } from 'uuid';
 import { CreateDiaryDto } from './dto/create-diary.dto';
@@ -35,7 +35,11 @@ export class DiariesService {
     return diaries;
   }
   getDiaryById(id: string): Diary {
-    return this.diaries.find((diary) => diary.id === id);
+    const found = this.diaries.find((diary) => diary.id === id); // 찾았는지를 확인해야 함
+    if (!found) {
+      throw new NotFoundException(`Diary with ID "${id}" not found`);
+    }
+    return found;
   }
 
   getDiariesByMonth(month: string): Diary[] {
@@ -58,15 +62,21 @@ export class DiariesService {
   }
 
   deleteDiary(id: string): void {
-    this.diaries = this.diaries.filter((diary) => diary.id !== id);
+    const found = this.getDiaryById(id);
+    this.diaries = this.diaries.filter((diary) => diary.id === found.id);
   }
 
-  updateTitleNContent(id: string, title: string, content: string): Diary {
+  updateTitleNContent(
+    id: string,
+    title: string,
+    content: string,
+    status: DiaryStatus,
+  ): Diary {
     const diary = this.getDiaryById(id);
     diary.title = title;
     diary.content = content;
     diary.date = new Date();
-    diary.status = DiaryStatus.IN_PROGRESS;
+    diary.status = status;
 
     return diary;
   }

@@ -12,6 +12,7 @@ import { DiariesService } from './diaries.service';
 import { Diary } from './diary.model';
 import { CreateDiaryDto } from './dto/create-diary.dto';
 import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
+import { UpdateDiaryStatusDto } from './dto/update-diary-status.dto';
 
 @Controller('diaries')
 export class DiariesController {
@@ -51,7 +52,9 @@ export class DiariesController {
     @Param('id') id: string,
     @Body('title') title: string,
     @Body('content') content: string,
+    @Body() updateDiaryStatusDto: UpdateDiaryStatusDto,
   ): Diary {
-    return this.diariesService.updateTitleNContent(id, title, content);
+    const { status } = updateDiaryStatusDto;
+    return this.diariesService.updateTitleNContent(id, title, content, status);
   }
 }
