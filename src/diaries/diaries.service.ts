@@ -6,6 +6,7 @@ import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
 import { Diary } from './diary.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DiaryRepository } from './diaries.repository';
+import { UpdateDiaryDto } from './dto/update-diary.dto';
 
 @Injectable()
 export class DiariesService {
@@ -14,32 +15,10 @@ export class DiariesService {
     private diaryRepository: DiaryRepository,
   ) {}
 
-  // getAllDiaries(): Diary[] {
-  //   return this.diaryRepository;
-  // }
+  getDiaries(filterDto: GetDiariesFilterDto): Promise<Diary[]> {
+    return this.diaryRepository.getDiaries(filterDto);
+  }
 
-  // getDiariesWithFilters(getDiariesWithFilters: GetDiariesFilterDto): Diary[] {
-  //   const { status, search } = getDiariesWithFilters;
-
-  //   // diary 결과를 담을 diaries 변수를 하나 생성한다
-  //   let diaries = this.getAllDiaries();
-  //   // status 필터로 하는 액션
-  //   if (status) {
-  //     diaries = diaries.filter((diary) => diary.status === status);
-  //   }
-  //   // search 필터로 하는 액션
-  //   if (search) {
-  //     diaries = diaries.filter((diary) => {
-  //       if (diary.title.includes(search) || diary.content.includes(search)) {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     });
-  //   }
-  //   // diaries 결과를 반환함
-  //   return diaries;
-  // }
   async getDiaryById(id: string): Promise<Diary> {
     const found = await this.diaryRepository.findOne(id); // 찾았는지를 확인해야 함
     if (!found) {
@@ -48,7 +27,11 @@ export class DiariesService {
     return found;
   }
 
-  // getDiariesByMonth(month: string): Diary[] {
+  // async getDiariesByMonth(month: string): Promise<Diary[]> {
+  //   const found = await this.diaryRepository.find({
+  //     where: { date: `${Number(month)}` },
+  //   });
+  //   // getMonth 사용해야 하는데 쿼리를 어떻게..?
   //   return this.diaries.filter(
   //     (diary) => diary.date.getMonth() === Number(month) - 1,
   //   );
@@ -58,23 +41,22 @@ export class DiariesService {
     return this.diaryRepository.createDiary(createDiaryDto);
   }
 
-  // deleteDiary(id: string): void {
-  //   const found = this.getDiaryById(id);
-  //   this.diaries = this.diaries.filter((diary) => diary.id === found.id);
-  // }
+  deleteDiary(id: string): Promise<void> {
+    return this.diaryRepository.deleteDiary(id);
+  }
 
-  // updateTitleNContent(
-  //   id: string,
-  //   title: string,
-  //   content: string,
-  //   status: DiaryStatus,
-  // ): Diary {
-  //   const diary = this.getDiaryById(id);
-  //   diary.title = title;
-  //   diary.content = content;
-  //   diary.date = new Date();
-  //   diary.status = status;
+  async updateTitleNContent(
+    id: string,
+    statusDto: UpdateDiaryDto,
+  ): Promise<Diary> {
+    const diary = await this.getDiaryById(id);
+    const { title, content } = statusDto;
+    diary.title = title;
+    diary.content = content;
+    diary.date = new Date();
+    diary.status = DiaryStatus.IN_PROGRESS;
+    await this.diaryRepository.save(diary);
 
-  //   return diary;
-  // }
+    return diary;
+  }
 }
