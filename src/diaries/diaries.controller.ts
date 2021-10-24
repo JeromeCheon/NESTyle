@@ -37,10 +37,10 @@ export class DiariesController {
   //   return this.diariesService.getDiariesByMonth(month);
   // }
 
-  // @Post()
-  // createDiary(@Body() createDiaryDto: CreateDiaryDto): Diary {
-  //   return this.diariesService.createDiary(createDiaryDto);
-  // }
+  @Post()
+  createDiary(@Body() createDiaryDto: CreateDiaryDto): Promise<Diary> {
+    return this.diariesService.createDiary(createDiaryDto);
+  }
 
   // @Delete('/:id')
   // deleteDiary(@Param('id') id: string): void {
