@@ -54,18 +54,9 @@ export class DiariesService {
   //   );
   // }
 
-  // createDiary(createDiaryDto: CreateDiaryDto): Diary {
-  //   const { title, content } = createDiaryDto;
-  //   const diary: Diary = {
-  //     id: uuid(),
-  //     title: title,
-  //     date: new Date(), // Date instance를 넣는게 맞을까, string으로 넣는게 맞을까?
-  //     content: content,
-  //     status: DiaryStatus.NEW,
-  //   };
-  //   this.diaries.push(diary); // Diary에 푸시를 해서 새 일기를 기록함
-  //   return diary;
-  // }
+  createDiary(createDiaryDto: CreateDiaryDto): Promise<Diary> {
+    return this.diaryRepository.createDiary(createDiaryDto);
+  }
 
   // deleteDiary(id: string): void {
   //   const found = this.getDiaryById(id);
