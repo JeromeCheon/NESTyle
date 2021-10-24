@@ -12,20 +12,16 @@ import { DiariesService } from './diaries.service';
 import { Diary } from './diary.entity';
 import { CreateDiaryDto } from './dto/create-diary.dto';
 import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
-import { UpdateDiaryStatusDto } from './dto/update-diary-status.dto';
+import { UpdateDiaryDto } from './dto/update-diary.dto';
 
 @Controller('diaries')
 export class DiariesController {
   constructor(private diariesService: DiariesService) {}
 
-  // @Get()
-  // getDiaries(@Query() filterDto: GetDiariesFilterDto): Diary[] {
-  //   if (Object.keys(filterDto).length) {
-  //     return this.diariesService.getDiariesWithFilters(filterDto);
-  //   } else {
-  //     return this.diariesService.getAllDiaries();
-  //   }
-  // }
+  @Get()
+  getDiaries(@Query() filterDto: GetDiariesFilterDto): Promise<Diary[]> {
+    return this.diariesService.getDiaries(filterDto);
+  }
 
   @Get('/:id')
   getDiaryById(@Param('id') id: string): Promise<Diary> {
@@ -42,19 +38,16 @@ export class DiariesController {
     return this.diariesService.createDiary(createDiaryDto);
   }
 
-  // @Delete('/:id')
-  // deleteDiary(@Param('id') id: string): void {
-  //   return this.diariesService.deleteDiary(id);
-  // }
+  @Delete('/:id')
+  deleteDiary(@Param('id') id: string): Promise<void> {
+    return this.diariesService.deleteDiary(id);
+  }
 
-  // @Patch('/:id')
-  // updateTitleNContent(
-  //   @Param('id') id: string,
-  //   @Body('title') title: string,
-  //   @Body('content') content: string,
-  //   @Body() updateDiaryStatusDto: UpdateDiaryStatusDto,
-  // ): Diary {
-  //   const { status } = updateDiaryStatusDto;
-  //   return this.diariesService.updateTitleNContent(id, title, content, status);
-  // }
+  @Patch('/:id')
+  updateTitleNContent(
+    @Param('id') id: string,
+    @Body() updateDiaryDto: UpdateDiaryDto,
+  ): Promise<Diary> {
+    return this.diariesService.updateTitleNContent(id, updateDiaryDto);
+  }
 }
