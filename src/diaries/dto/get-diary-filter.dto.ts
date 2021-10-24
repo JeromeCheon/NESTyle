@@ -5,7 +5,8 @@ export class GetDiariesFilterDto {
   @IsOptional()
   @IsEnum(DiaryStatus)
   status?: DiaryStatus;
+
   @IsOptional()
   @IsString()
-  search: string;
+  search?: string;
 }

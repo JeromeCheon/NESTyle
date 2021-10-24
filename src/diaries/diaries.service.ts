@@ -41,8 +41,8 @@ export class DiariesService {
     return this.diaryRepository.createDiary(createDiaryDto);
   }
 
-  deleteDiary(id: string): Promise<void> {
-    return this.diaryRepository.deleteDiary(id);
+  async deleteDiary(id: string): Promise<void> {
+    await this.diaryRepository.deleteDiary(id);
   }
 
   async updateTitleNContent(

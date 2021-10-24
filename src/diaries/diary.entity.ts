@@ -8,10 +8,13 @@ export class Diary {
 
   @Column()
   title: string;
+
   @Column()
   content: string;
+
   @Column()
   date: Date;
+  
   @Column()
   status: DiaryStatus;
 }

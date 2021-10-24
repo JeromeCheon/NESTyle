@@ -1,9 +1,11 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { DiaryStatus } from './diary-status.enum';
 import { Diary } from './diary.entity';
 import { CreateDiaryDto } from './dto/create-diary.dto';
 import { GetDiariesFilterDto } from './dto/get-diary-filter.dto';
+
+
 
 @EntityRepository(Diary)
 export class DiaryRepository extends Repository<Diary> {
